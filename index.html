@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Cadastro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Formulário de Cadastro</h1>
+    <div id="form-container">
+      <form id="myForm" action="https://api.sheetmonkey.io/form/jRqFeD927yQao9bur3EPdc" method="POST" onsubmit="handleSubmit(event)">
+        <!-- Nome -->
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <!-- Matrícula -->
+        <label for="matricula">Matrícula:</label>
+        <input type="text" id="matricula" name="matricula" required>
+
+        <!-- Turno do Curso -->
+        <label for="turno">Turno do Curso:</label>
+        <select id="turno" name="turno" required>
+          <option value="manha">Manhã</option>
+          <option value="tarde">Tarde</option>
+          <option value="noite">Noite</option>
+        </select>
+
+        <!-- Idade -->
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade" required>
+
+        <!-- Qual Curso -->
+        <label for="curso">Qual Curso:</label>
+        <input type="text" id="curso" name="curso" required>
+
+        <!-- Cidade -->
+        <label for="cidade">Cidade:</label>
+        <select id="cidade" name="cidade" required>
+          <option value="santa-maria">Santa Maria</option>
+          <option value="gama">Gama</option>
+          <option value="valparaiso">Valparaíso de Goiás</option>
+          <option value="taguatinga">Taguatinga</option>
+          <option value="recanto">Recanto das Emas</option>
+        </select>
+
+        <!-- Trabalha na Área -->
+        <label for="trabalha">Trabalha na Área:</label>
+        <select id="trabalha" name="trabalha" required>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+
+        <!-- Sexo -->
+        <label for="sexo">Sexo:</label>
+        <select id="sexo" name="sexo" required>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+          <option value="indefinido">Indefinido</option>
+        </select>
+
+        <!-- Professor Favorito -->
+        <label for="professor">Professor Favorito:</label>
+        <input type="text" id="professor" name="professor" required>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+
+    <div id="confirmation-container" style="display:none;">
+      <h2>Formulário Enviado com Sucesso!</h2>
+      <button onclick="goBackToForm()">Voltar ao Formulário</button>
+    </div>
+  </div>
+
+  <script>
+    // Função para manipular o envio do formulário
+    function handleSubmit(event) {
+  event.preventDefault(); // Impede o envio real do formulário
+
+  // Exibe a tela de confirmação
+  document.getElementById('form-container').style.display = 'none';
+  document.getElementById('confirmation-container').style.display = 'block';
+
+  // Envia os dados via fetch
+  const form = event.target;
+  const formData = new FormData(form);
+
+  fetch(form.action, {
+    method: 'POST',
+    body: formData,
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log("Dados enviados com sucesso!");
+    } else {
+      console.warn("Resposta recebida, mas com status:", response.status);
+    }
+  })
+  .catch(error => {
+    console.error("Erro real ao enviar os dados:", error);
+    // Nenhum alert(), só loga no console
+  });
+}
+
+
+    // Função para voltar ao formulário
+    function goBackToForm() {
+      // Oculta a tela de confirmação e mostra o formulário novamente
+      document.getElementById('confirmation-container').style.display = 'none';
+      document.getElementById('form-container').style.display = 'block';
+
+      // Limpar o formulário
+      document.getElementById('myForm').reset();
+    }
+  </script>
+
+</body>
+</html>
